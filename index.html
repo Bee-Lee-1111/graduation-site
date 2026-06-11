@@ -720,16 +720,7 @@
   </nav>
 
   <header class="hero" id="top">
-    <div class="hero-content">
-      <div class="kicker">Graduation Album 2026</div>
-      <h1>把青春装订成册</h1>
-      <p class="hero-text">532 张照片，留住这个毕业夏天。</p>
-      <div class="hero-actions">
-        <a class="btn primary" href="#people">选择人物</a>
-        <a class="btn" href="#moments">看流动画卷</a>
-      </div>
-      <div class="album-preview" id="albumPreview" aria-label="毕业纪念册封面照片"></div>
-    </div>
+    <div class="hero-content" aria-label="毕业封面"></div>
   </header>
 
   <main>
@@ -1339,7 +1330,6 @@
     const photoCount = document.querySelector("#photoCount");
     const marqueeA = document.querySelector("#marqueeA");
     const marqueeB = document.querySelector("#marqueeB");
-    const albumPreview = document.querySelector("#albumPreview");
     const peopleGrid = document.querySelector("#peopleGrid");
     const featurePhoto = document.querySelector("#featurePhoto");
     const photoGrid = document.querySelector("#photoGrid");
@@ -1379,34 +1369,6 @@
       const fragment = document.createDocumentFragment();
       loop.forEach((src, index) => fragment.appendChild(makeStripPhoto(src, index)));
       target.appendChild(fragment);
-    }
-
-    function renderAlbumPreview() {
-      const previewImages = [
-        coverImage,
-        images[Math.min(28, images.length - 1)],
-        images[Math.min(154, images.length - 1)],
-        images[Math.min(318, images.length - 1)]
-      ];
-      const tilts = ["-3deg", "2deg", "-1.5deg", "3deg"];
-      const fragment = document.createDocumentFragment();
-
-      previewImages.forEach((src, index) => {
-        const card = document.createElement("div");
-        card.className = "album-card";
-        card.style.setProperty("--tilt", tilts[index]);
-
-        const img = document.createElement("img");
-        img.src = src;
-        img.loading = "lazy";
-        img.decoding = "async";
-        img.alt = `纪念册封面照片 ${index + 1}`;
-
-        card.appendChild(img);
-        fragment.appendChild(card);
-      });
-
-      albumPreview.appendChild(fragment);
     }
 
     function imageNumber(src) {
@@ -1545,7 +1507,6 @@
 
     renderMarquee(marqueeA, stripA);
     renderMarquee(marqueeB, stripB);
-    renderAlbumPreview();
     renderPeopleGrid();
     renderGalleryBatch();
     loadMore.addEventListener("click", renderGalleryBatch);
