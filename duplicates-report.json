@@ -1,0 +1,23 @@
+﻿{
+    "note":  "Only compressed copies in dist/images were removed. Original JPG files in the project root were preserved.",
+    "original_count":  547,
+    "removed_count":  15,
+    "remaining_count":  532,
+    "removed_files":  [
+                          "DSC08848.JPG",
+                          "DSC08955.JPG",
+                          "DSC08981.JPG",
+                          "DSC09105.JPG",
+                          "DSC09107.JPG",
+                          "DSC09145.JPG",
+                          "DSC09149.JPG",
+                          "DSC09164.JPG",
+                          "DSC09173.JPG",
+                          "DSC09175.JPG",
+                          "DSC09177.JPG",
+                          "DSC09181.JPG",
+                          "DSC09204.JPG",
+                          "DSC09221.JPG",
+                          "DSC09222.JPG"
+                      ]
+}

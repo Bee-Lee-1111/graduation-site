@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>青春不散场 | 毕业纪念</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #16213e;
+      --muted: #667085;
+      --paper: #fffaf2;
+      --sun: #ffd166;
+      --coral: #ef476f;
+      --mint: #06d6a0;
+      --sky: #118ab2;
+      --deep: #073b4c;
+      --line: rgba(22, 33, 62, 0.13);
+      --shadow: 0 20px 55px rgba(7, 59, 76, 0.17);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 16% 12%, rgba(255, 209, 102, 0.28), transparent 30%),
+        radial-gradient(circle at 84% 8%, rgba(6, 214, 160, 0.18), transparent 28%),
+        linear-gradient(180deg, #fffaf2 0%, #f2fbff 45%, #fff7fb 100%);
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px clamp(18px, 4vw, 56px);
+      color: #fff;
+      background: linear-gradient(180deg, rgba(7, 59, 76, 0.72), rgba(7, 59, 76, 0));
+      pointer-events: none;
+    }
+
+    .brand,
+    .nav-links {
+      pointer-events: auto;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--deep);
+      background: var(--sun);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      background: rgba(7, 59, 76, 0.32);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-links a {
+      min-width: 58px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 94vh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      isolation: isolate;
+      background: #073b4c;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image: var(--hero-img);
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.03);
+      animation: heroFloat 16s ease-in-out infinite alternate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background:
+        linear-gradient(90deg, rgba(7, 59, 76, 0.88) 0%, rgba(7, 59, 76, 0.48) 48%, rgba(7, 59, 76, 0.1) 100%),
+        linear-gradient(0deg, rgba(7, 59, 76, 0.84) 0%, rgba(7, 59, 76, 0.05) 58%);
+    }
+
+    @keyframes heroFloat {
+      from { transform: scale(1.03) translate3d(0, 0, 0); }
+      to { transform: scale(1.09) translate3d(-1.5%, -1%, 0); }
+    }
+
+    .hero-content {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 132px 0 9vh;
+      color: #fff;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 38px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--sun);
+    }
+
+    h1 {
+      width: min(850px, 100%);
+      margin: 0;
+      font-size: clamp(44px, 9vw, 112px);
+      line-height: 0.95;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .hero-text {
+      width: min(690px, 100%);
+      margin: 22px 0 0;
+      font-size: clamp(17px, 2.1vw, 24px);
+      line-height: 1.68;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.13);
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      color: var(--deep);
+      border-color: var(--sun);
+      background: var(--sun);
+    }
+
+    .section {
+      padding: clamp(58px, 8vw, 108px) clamp(18px, 4vw, 56px);
+    }
+
+    .section-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 58px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .section-title p {
+      max-width: 420px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 600;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: -42px;
+      position: relative;
+      z-index: 4;
+    }
+
+    .stat {
+      min-height: 126px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1;
+      color: var(--deep);
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .memory-band {
+      background: #ffffff;
+      overflow: hidden;
+      border-block: 1px solid var(--line);
+    }
+
+    .marquee-wrap {
+      display: grid;
+      gap: 18px;
+      width: 100%;
+    }
+
+    .marquee {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      animation: slideLeft 58s linear infinite;
+    }
+
+    .marquee.reverse {
+      animation-name: slideRight;
+      animation-duration: 64s;
+    }
+
+    .marquee:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes slideLeft {
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes slideRight {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
+    }
+
+    .strip-photo {
+      width: clamp(210px, 26vw, 360px);
+      aspect-ratio: 4 / 3;
+      flex: 0 0 auto;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #e7f5f6;
+      box-shadow: 0 18px 42px rgba(7, 59, 76, 0.16);
+    }
+
+    .strip-photo img,
+    .photo img,
+    .feature img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .story {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0));
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: clamp(22px, 4vw, 54px);
+      align-items: center;
+    }
+
+    .feature {
+      position: relative;
+      min-height: 520px;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      background: #dff8f2;
+    }
+
+    .feature-label {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      right: 18px;
+      padding: 16px 18px;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 8px;
+      background: rgba(7, 59, 76, 0.64);
+      backdrop-filter: blur(14px);
+    }
+
+    .feature-label strong {
+      display: block;
+      font-size: 22px;
+    }
+
+    .feature-label span {
+      display: block;
+      margin-top: 6px;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.5;
+    }
+
+    .quote {
+      padding: 10px 0;
+    }
+
+    .quote p {
+      margin: 0;
+      font-size: clamp(24px, 4vw, 46px);
+      line-height: 1.34;
+      font-weight: 900;
+      color: var(--deep);
+      text-wrap: balance;
+    }
+
+    .quote .note {
+      margin-top: 22px;
+      font-size: 16px;
+      line-height: 1.9;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .chip {
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      font-weight: 800;
+      color: var(--deep);
+    }
+
+    .gallery {
+      background: #f9fcff;
+      border-top: 1px solid var(--line);
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .photo {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #e8eef6;
+      box-shadow: 0 14px 32px rgba(7, 59, 76, 0.1);
+      cursor: zoom-in;
+    }
+
+    .photo::after {
+      content: attr(data-title);
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 32px 12px 12px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      background: linear-gradient(0deg, rgba(7, 59, 76, 0.7), transparent);
+      opacity: 0;
+      transition: opacity 0.24s ease;
+    }
+
+    .photo:hover img {
+      transform: scale(1.06);
+    }
+
+    .photo:hover::after {
+      opacity: 1;
+    }
+
+    .photo img {
+      transition: transform 0.45s ease;
+    }
+
+    .load-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .load-more {
+      min-height: 46px;
+      padding: 12px 22px;
+      border: 0;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--deep);
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 14px 28px rgba(7, 59, 76, 0.2);
+    }
+
+    .load-more:disabled {
+      color: rgba(255, 255, 255, 0.76);
+      background: #8aa1aa;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(7, 23, 33, 0.88);
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: min(96vw, 1400px);
+      max-height: 88vh;
+      border-radius: 8px;
+      object-fit: contain;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+    }
+
+    .close {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    footer {
+      padding: 34px 18px 42px;
+      color: rgba(255, 255, 255, 0.74);
+      text-align: center;
+      background: var(--deep);
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 0;
+      }
+
+      .section-title,
+      .story-grid {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .feature {
+        min-height: 430px;
+      }
+
+      .photo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-content {
+        padding-top: 108px;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        min-height: 100px;
+      }
+
+      .photo-grid {
+        gap: 9px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="页面导航">
+    <a class="brand" href="#top" aria-label="回到顶部">
+      <span class="brand-mark">毕</span>
+      <span>青春不散场</span>
+    </a>
+    <div class="nav-links">
+      <a href="#moments">流动画卷</a>
+      <a href="#story">青春片段</a>
+      <a href="#gallery">照片墙</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-content">
+      <div class="kicker">Graduation Season</div>
+      <h1>青春正好，奔赴下一场山海</h1>
+      <p class="hero-text">把笑声、阳光、并肩走过的日子，都装进这一页。547 张照片，记录这个夏天最闪亮的毕业瞬间。</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#moments">开始回看</a>
+        <a class="btn" href="#gallery">进入照片墙</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-inner stats" aria-label="照片信息">
+        <div class="stat">
+          <strong id="photoCount">547</strong>
+          <span>张青春影像</span>
+        </div>
+        <div class="stat">
+          <strong>1</strong>
+          <span>个毕业夏天</span>
+        </div>
+        <div class="stat">
+          <strong>∞</strong>
+          <span>份同行记忆</span>
+        </div>
+        <div class="stat">
+          <strong>2026</strong>
+          <span>奔赴新章</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section memory-band" id="moments">
+      <div class="section-title section-inner">
+        <h2>滚动展示</h2>
+        <p>照片像走廊里的风一样掠过，停下鼠标就能慢慢看。每一张都在说：我们真的一起热烈地年轻过。</p>
+      </div>
+      <div class="marquee-wrap" aria-label="毕业照片滚动展示">
+        <div class="marquee" id="marqueeA"></div>
+        <div class="marquee reverse" id="marqueeB"></div>
+      </div>
+    </section>
+
+    <section class="section story" id="story">
+      <div class="section-inner story-grid">
+        <figure class="feature">
+          <img id="featurePhoto" alt="毕业纪念精选照片" loading="lazy">
+          <figcaption class="feature-label">
+            <strong>把今天交给镜头</strong>
+            <span>多年后再翻起，风声、掌声、笑声都会回来。</span>
+          </figcaption>
+        </figure>
+        <div class="quote">
+          <p>毕业不是散场，是把同一段青春折成纸飞机，飞向不同的明天。</p>
+          <div class="note">愿每一次回头，都能看见闪闪发光的我们；愿每一次出发，都还带着此刻的勇气。</div>
+          <div class="chips" aria-label="主题标签">
+            <span class="chip">热烈</span>
+            <span class="chip">明亮</span>
+            <span class="chip">同行</span>
+            <span class="chip">远方</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery" id="gallery">
+      <div class="section-inner">
+        <div class="section-title">
+          <h2>毕业照片墙</h2>
+          <p>默认先加载一部分，继续点击就能逐批展开全部照片；图片使用懒加载，浏览会更顺滑。</p>
+        </div>
+        <div class="photo-grid" id="photoGrid" aria-live="polite"></div>
+        <div class="load-row">
+          <button class="load-more" id="loadMore" type="button">加载更多照片</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    青春不散场，下一站也要闪闪发光。
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="照片预览">
+    <button class="close" id="closeLightbox" type="button" aria-label="关闭预览">&times;</button>
+    <img id="lightboxImage" alt="放大的毕业照片">
+  </div>
+
+  <script>
+    const images = [
+      "images/DSC08760.JPG",
+      "images/DSC08761.JPG",
+      "images/DSC08762.JPG",
+      "images/DSC08763.JPG",
+      "images/DSC08764.JPG",
+      "images/DSC08765.JPG",
+      "images/DSC08766.JPG",
+      "images/DSC08767.JPG",
+      "images/DSC08768.JPG",
+      "images/DSC08769.JPG",
+      "images/DSC08770.JPG",
+      "images/DSC08771.JPG",
+      "images/DSC08772.JPG",
+      "images/DSC08773.JPG",
+      "images/DSC08774.JPG",
+      "images/DSC08775.JPG",
+      "images/DSC08776.JPG",
+      "images/DSC08777.JPG",
+      "images/DSC08778.JPG",
+      "images/DSC08779.JPG",
+      "images/DSC08780.JPG",
+      "images/DSC08781.JPG",
+      "images/DSC08782.JPG",
+      "images/DSC08783.JPG",
+      "images/DSC08784.JPG",
+      "images/DSC08785.JPG",
+      "images/DSC08786.JPG",
+      "images/DSC08787.JPG",
+      "images/DSC08788.JPG",
+      "images/DSC08789.JPG",
+      "images/DSC08790.JPG",
+      "images/DSC08791.JPG",
+      "images/DSC08792.JPG",
+      "images/DSC08793.JPG",
+      "images/DSC08794.JPG",
+      "images/DSC08795.JPG",
+      "images/DSC08796.JPG",
+      "images/DSC08797.JPG",
+      "images/DSC08798.JPG",
+      "images/DSC08799.JPG",
+      "images/DSC08800.JPG",
+      "images/DSC08801.JPG",
+      "images/DSC08802.JPG",
+      "images/DSC08803.JPG",
+      "images/DSC08804.JPG",
+      "images/DSC08805.JPG",
+      "images/DSC08806.JPG",
+      "images/DSC08807.JPG",
+      "images/DSC08808.JPG",
+      "images/DSC08809.JPG",
+      "images/DSC08810.JPG",
+      "images/DSC08811.JPG",
+      "images/DSC08812.JPG",
+      "images/DSC08813.JPG",
+      "images/DSC08814.JPG",
+      "images/DSC08815.JPG",
+      "images/DSC08816.JPG",
+      "images/DSC08817.JPG",
+      "images/DSC08818.JPG",
+      "images/DSC08819.JPG",
+      "images/DSC08820.JPG",
+      "images/DSC08821.JPG",
+      "images/DSC08822.JPG",
+      "images/DSC08823.JPG",
+      "images/DSC08824.JPG",
+      "images/DSC08825.JPG",
+      "images/DSC08826.JPG",
+      "images/DSC08827.JPG",
+      "images/DSC08828.JPG",
+      "images/DSC08829.JPG",
+      "images/DSC08830.JPG",
+      "images/DSC08831.JPG",
+      "images/DSC08832.JPG",
+      "images/DSC08833.JPG",
+      "images/DSC08834.JPG",
+      "images/DSC08835.JPG",
+      "images/DSC08836.JPG",
+      "images/DSC08837.JPG",
+      "images/DSC08838.JPG",
+      "images/DSC08839.JPG",
+      "images/DSC08840.JPG",
+      "images/DSC08841.JPG",
+      "images/DSC08842.JPG",
+      "images/DSC08843.JPG",
+      "images/DSC08844.JPG",
+      "images/DSC08845.JPG",
+      "images/DSC08846.JPG",
+      "images/DSC08847.JPG",
+      "images/DSC08849.JPG",
+      "images/DSC08850.JPG",
+      "images/DSC08851.JPG",
+      "images/DSC08852.JPG",
+      "images/DSC08853.JPG",
+      "images/DSC08854.JPG",
+      "images/DSC08855.JPG",
+      "images/DSC08856.JPG",
+      "images/DSC08857.JPG",
+      "images/DSC08858.JPG",
+      "images/DSC08859.JPG",
+      "images/DSC08860.JPG",
+      "images/DSC08861.JPG",
+      "images/DSC08862.JPG",
+      "images/DSC08863.JPG",
+      "images/DSC08864.JPG",
+      "images/DSC08865.JPG",
+      "images/DSC08866.JPG",
+      "images/DSC08867.JPG",
+      "images/DSC08868.JPG",
+      "images/DSC08869.JPG",
+      "images/DSC08870.JPG",
+      "images/DSC08871.JPG",
+      "images/DSC08872.JPG",
+      "images/DSC08873.JPG",
+      "images/DSC08874.JPG",
+      "images/DSC08875.JPG",
+      "images/DSC08876.JPG",
+      "images/DSC08877.JPG",
+      "images/DSC08878.JPG",
+      "images/DSC08879.JPG",
+      "images/DSC08880.JPG",
+      "images/DSC08881.JPG",
+      "images/DSC08882.JPG",
+      "images/DSC08883.JPG",
+      "images/DSC08884.JPG",
+      "images/DSC08885.JPG",
+      "images/DSC08886.JPG",
+      "images/DSC08887.JPG",
+      "images/DSC08888.JPG",
+      "images/DSC08889.JPG",
+      "images/DSC08890.JPG",
+      "images/DSC08891.JPG",
+      "images/DSC08892.JPG",
+      "images/DSC08893.JPG",
+      "images/DSC08894.JPG",
+      "images/DSC08895.JPG",
+      "images/DSC08896.JPG",
+      "images/DSC08897.JPG",
+      "images/DSC08898.JPG",
+      "images/DSC08899.JPG",
+      "images/DSC08900.JPG",
+      "images/DSC08901.JPG",
+      "images/DSC08902.JPG",
+      "images/DSC08903.JPG",
+      "images/DSC08904.JPG",
+      "images/DSC08905.JPG",
+      "images/DSC08906.JPG",
+      "images/DSC08907.JPG",
+      "images/DSC08908.JPG",
+      "images/DSC08909.JPG",
+      "images/DSC08910.JPG",
+      "images/DSC08911.JPG",
+      "images/DSC08912.JPG",
+      "images/DSC08913.JPG",
+      "images/DSC08914.JPG",
+      "images/DSC08915.JPG",
+      "images/DSC08916.JPG",
+      "images/DSC08917.JPG",
+      "images/DSC08918.JPG",
+      "images/DSC08919.JPG",
+      "images/DSC08920.JPG",
+      "images/DSC08921.JPG",
+      "images/DSC08922.JPG",
+      "images/DSC08923.JPG",
+      "images/DSC08924.JPG",
+      "images/DSC08925.JPG",
+      "images/DSC08926.JPG",
+      "images/DSC08927.JPG",
+      "images/DSC08928.JPG",
+      "images/DSC08929.JPG",
+      "images/DSC08930.JPG",
+      "images/DSC08931.JPG",
+      "images/DSC08932.JPG",
+      "images/DSC08933.JPG",
+      "images/DSC08934.JPG",
+      "images/DSC08935.JPG",
+      "images/DSC08936.JPG",
+      "images/DSC08937.JPG",
+      "images/DSC08938.JPG",
+      "images/DSC08939.JPG",
+      "images/DSC08940.JPG",
+      "images/DSC08941.JPG",
+      "images/DSC08942.JPG",
+      "images/DSC08943.JPG",
+      "images/DSC08944.JPG",
+      "images/DSC08945.JPG",
+      "images/DSC08946.JPG",
+      "images/DSC08947.JPG",
+      "images/DSC08948.JPG",
+      "images/DSC08949.JPG",
+      "images/DSC08950.JPG",
+      "images/DSC08951.JPG",
+      "images/DSC08952.JPG",
+      "images/DSC08953.JPG",
+      "images/DSC08954.JPG",
+      "images/DSC08956.JPG",
+      "images/DSC08957.JPG",
+      "images/DSC08958.JPG",
+      "images/DSC08959.JPG",
+      "images/DSC08960.JPG",
+      "images/DSC08961.JPG",
+      "images/DSC08962.JPG",
+      "images/DSC08963.JPG",
+      "images/DSC08964.JPG",
+      "images/DSC08965.JPG",
+      "images/DSC08966.JPG",
+      "images/DSC08967.JPG",
+      "images/DSC08968.JPG",
+      "images/DSC08969.JPG",
+      "images/DSC08970.JPG",
+      "images/DSC08971.JPG",
+      "images/DSC08972.JPG",
+      "images/DSC08973.JPG",
+      "images/DSC08974.JPG",
+      "images/DSC08975.JPG",
+      "images/DSC08976.JPG",
+      "images/DSC08977.JPG",
+      "images/DSC08978.JPG",
+      "images/DSC08979.JPG",
+      "images/DSC08980.JPG",
+      "images/DSC08982.JPG",
+      "images/DSC08983.JPG",
+      "images/DSC08984.JPG",
+      "images/DSC08985.JPG",
+      "images/DSC08986.JPG",
+      "images/DSC08987.JPG",
+      "images/DSC08988.JPG",
+      "images/DSC08989.JPG",
+      "images/DSC08990.JPG",
+      "images/DSC08991.JPG",
+      "images/DSC08992.JPG",
+      "images/DSC08993.JPG",
+      "images/DSC08994.JPG",
+      "images/DSC08995.JPG",
+      "images/DSC08996.JPG",
+      "images/DSC08997.JPG",
+      "images/DSC08998.JPG",
+      "images/DSC08999.JPG",
+      "images/DSC09000.JPG",
+      "images/DSC09001.JPG",
+      "images/DSC09002.JPG",
+      "images/DSC09003.JPG",
+      "images/DSC09004.JPG",
+      "images/DSC09005.JPG",
+      "images/DSC09006.JPG",
+      "images/DSC09007.JPG",
+      "images/DSC09008.JPG",
+      "images/DSC09009.JPG",
+      "images/DSC09010.JPG",
+      "images/DSC09011.JPG",
+      "images/DSC09012.JPG",
+      "images/DSC09013.JPG",
+      "images/DSC09014.JPG",
+      "images/DSC09015.JPG",
+      "images/DSC09016.JPG",
+      "images/DSC09017.JPG",
+      "images/DSC09018.JPG",
+      "images/DSC09019.JPG",
+      "images/DSC09020.JPG",
+      "images/DSC09021.JPG",
+      "images/DSC09022.JPG",
+      "images/DSC09023.JPG",
+      "images/DSC09024.JPG",
+      "images/DSC09025.JPG",
+      "images/DSC09026.JPG",
+      "images/DSC09027.JPG",
+      "images/DSC09028.JPG",
+      "images/DSC09029.JPG",
+      "images/DSC09030.JPG",
+      "images/DSC09031.JPG",
+      "images/DSC09032.JPG",
+      "images/DSC09033.JPG",
+      "images/DSC09034.JPG",
+      "images/DSC09035.JPG",
+      "images/DSC09036.JPG",
+      "images/DSC09037.JPG",
+      "images/DSC09038.JPG",
+      "images/DSC09039.JPG",
+      "images/DSC09040.JPG",
+      "images/DSC09041.JPG",
+      "images/DSC09042.JPG",
+      "images/DSC09043.JPG",
+      "images/DSC09044.JPG",
+      "images/DSC09045.JPG",
+      "images/DSC09046.JPG",
+      "images/DSC09047.JPG",
+      "images/DSC09048.JPG",
+      "images/DSC09049.JPG",
+      "images/DSC09050.JPG",
+      "images/DSC09051.JPG",
+      "images/DSC09052.JPG",
+      "images/DSC09053.JPG",
+      "images/DSC09054.JPG",
+      "images/DSC09055.JPG",
+      "images/DSC09056.JPG",
+      "images/DSC09057.JPG",
+      "images/DSC09058.JPG",
+      "images/DSC09059.JPG",
+      "images/DSC09060.JPG",
+      "images/DSC09061.JPG",
+      "images/DSC09062.JPG",
+      "images/DSC09063.JPG",
+      "images/DSC09064.JPG",
+      "images/DSC09065.JPG",
+      "images/DSC09066.JPG",
+      "images/DSC09067.JPG",
+      "images/DSC09068.JPG",
+      "images/DSC09069.JPG",
+      "images/DSC09070.JPG",
+      "images/DSC09071.JPG",
+      "images/DSC09072.JPG",
+      "images/DSC09073.JPG",
+      "images/DSC09074.JPG",
+      "images/DSC09075.JPG",
+      "images/DSC09076.JPG",
+      "images/DSC09077.JPG",
+      "images/DSC09078.JPG",
+      "images/DSC09079.JPG",
+      "images/DSC09080.JPG",
+      "images/DSC09081.JPG",
+      "images/DSC09082.JPG",
+      "images/DSC09083.JPG",
+      "images/DSC09084.JPG",
+      "images/DSC09085.JPG",
+      "images/DSC09086.JPG",
+      "images/DSC09087.JPG",
+      "images/DSC09088.JPG",
+      "images/DSC09089.JPG",
+      "images/DSC09090.JPG",
+      "images/DSC09091.JPG",
+      "images/DSC09092.JPG",
+      "images/DSC09093.JPG",
+      "images/DSC09094.JPG",
+      "images/DSC09095.JPG",
+      "images/DSC09096.JPG",
+      "images/DSC09097.JPG",
+      "images/DSC09098.JPG",
+      "images/DSC09099.JPG",
+      "images/DSC09100.JPG",
+      "images/DSC09101.JPG",
+      "images/DSC09102.JPG",
+      "images/DSC09103.JPG",
+      "images/DSC09104.JPG",
+      "images/DSC09106.JPG",
+      "images/DSC09108.JPG",
+      "images/DSC09109.JPG",
+      "images/DSC09110.JPG",
+      "images/DSC09111.JPG",
+      "images/DSC09112.JPG",
+      "images/DSC09113.JPG",
+      "images/DSC09114.JPG",
+      "images/DSC09115.JPG",
+      "images/DSC09116.JPG",
+      "images/DSC09117.JPG",
+      "images/DSC09118.JPG",
+      "images/DSC09119.JPG",
+      "images/DSC09120.JPG",
+      "images/DSC09121.JPG",
+      "images/DSC09122.JPG",
+      "images/DSC09123.JPG",
+      "images/DSC09124.JPG",
+      "images/DSC09125.JPG",
+      "images/DSC09126.JPG",
+      "images/DSC09127.JPG",
+      "images/DSC09128.JPG",
+      "images/DSC09129.JPG",
+      "images/DSC09130.JPG",
+      "images/DSC09131.JPG",
+      "images/DSC09132.JPG",
+      "images/DSC09133.JPG",
+      "images/DSC09134.JPG",
+      "images/DSC09135.JPG",
+      "images/DSC09136.JPG",
+      "images/DSC09137.JPG",
+      "images/DSC09138.JPG",
+      "images/DSC09139.JPG",
+      "images/DSC09140.JPG",
+      "images/DSC09141.JPG",
+      "images/DSC09142.JPG",
+      "images/DSC09143.JPG",
+      "images/DSC09144.JPG",
+      "images/DSC09146.JPG",
+      "images/DSC09147.JPG",
+      "images/DSC09148.JPG",
+      "images/DSC09150.JPG",
+      "images/DSC09151.JPG",
+      "images/DSC09152.JPG",
+      "images/DSC09153.JPG",
+      "images/DSC09154.JPG",
+      "images/DSC09155.JPG",
+      "images/DSC09156.JPG",
+      "images/DSC09157.JPG",
+      "images/DSC09158.JPG",
+      "images/DSC09159.JPG",
+      "images/DSC09160.JPG",
+      "images/DSC09161.JPG",
+      "images/DSC09162.JPG",
+      "images/DSC09163.JPG",
+      "images/DSC09165.JPG",
+      "images/DSC09166.JPG",
+      "images/DSC09167.JPG",
+      "images/DSC09168.JPG",
+      "images/DSC09169.JPG",
+      "images/DSC09170.JPG",
+      "images/DSC09171.JPG",
+      "images/DSC09172.JPG",
+      "images/DSC09174.JPG",
+      "images/DSC09176.JPG",
+      "images/DSC09178.JPG",
+      "images/DSC09179.JPG",
+      "images/DSC09180.JPG",
+      "images/DSC09182.JPG",
+      "images/DSC09183.JPG",
+      "images/DSC09184.JPG",
+      "images/DSC09185.JPG",
+      "images/DSC09186.JPG",
+      "images/DSC09187.JPG",
+      "images/DSC09188.JPG",
+      "images/DSC09189.JPG",
+      "images/DSC09190.JPG",
+      "images/DSC09191.JPG",
+      "images/DSC09192.JPG",
+      "images/DSC09193.JPG",
+      "images/DSC09194.JPG",
+      "images/DSC09195.JPG",
+      "images/DSC09196.JPG",
+      "images/DSC09197.JPG",
+      "images/DSC09198.JPG",
+      "images/DSC09199.JPG",
+      "images/DSC09200.JPG",
+      "images/DSC09201.JPG",
+      "images/DSC09202.JPG",
+      "images/DSC09203.JPG",
+      "images/DSC09205.JPG",
+      "images/DSC09206.JPG",
+      "images/DSC09207.JPG",
+      "images/DSC09208.JPG",
+      "images/DSC09209.JPG",
+      "images/DSC09210.JPG",
+      "images/DSC09211.JPG",
+      "images/DSC09212.JPG",
+      "images/DSC09213.JPG",
+      "images/DSC09214.JPG",
+      "images/DSC09215.JPG",
+      "images/DSC09216.JPG",
+      "images/DSC09217.JPG",
+      "images/DSC09218.JPG",
+      "images/DSC09219.JPG",
+      "images/DSC09220.JPG",
+      "images/DSC09223.JPG",
+      "images/DSC09224.JPG",
+      "images/DSC09225.JPG",
+      "images/DSC09226.JPG",
+      "images/DSC09227.JPG",
+      "images/DSC09228.JPG",
+      "images/DSC09229.JPG",
+      "images/DSC09230.JPG",
+      "images/DSC09231.JPG",
+      "images/DSC09232.JPG",
+      "images/DSC09233.JPG",
+      "images/DSC09234.JPG",
+      "images/DSC09235.JPG",
+      "images/DSC09236.JPG",
+      "images/DSC09237.JPG",
+      "images/DSC09238.JPG",
+      "images/DSC09239.JPG",
+      "images/DSC09240.JPG",
+      "images/DSC09241.JPG",
+      "images/DSC09242.JPG",
+      "images/DSC09243.JPG",
+      "images/DSC09244.JPG",
+      "images/DSC09245.JPG",
+      "images/DSC09246.JPG",
+      "images/DSC09247.JPG",
+      "images/DSC09248.JPG",
+      "images/DSC09249.JPG",
+      "images/DSC09250.JPG",
+      "images/DSC09251.JPG",
+      "images/DSC09252.JPG",
+      "images/DSC09253.JPG",
+      "images/DSC09254.JPG",
+      "images/DSC09255.JPG",
+      "images/DSC09256.JPG",
+      "images/DSC09257.JPG",
+      "images/DSC09258.JPG",
+      "images/DSC09259.JPG",
+      "images/DSC09260.JPG",
+      "images/DSC09261.JPG",
+      "images/DSC09262.JPG",
+      "images/DSC09263.JPG",
+      "images/DSC09264.JPG",
+      "images/DSC09265.JPG",
+      "images/DSC09266.JPG",
+      "images/DSC09267.JPG",
+      "images/DSC09268.JPG",
+      "images/DSC09269.JPG",
+      "images/DSC09270.JPG",
+      "images/DSC09271.JPG",
+      "images/DSC09272.JPG",
+      "images/DSC09273.JPG",
+      "images/DSC09274.JPG",
+      "images/DSC09275.JPG",
+      "images/DSC09276.JPG",
+      "images/DSC09277.JPG",
+      "images/DSC09278.JPG",
+      "images/DSC09279.JPG",
+      "images/DSC09280.JPG",
+      "images/DSC09281.JPG",
+      "images/DSC09282.JPG",
+      "images/DSC09283.JPG",
+      "images/DSC09284.JPG",
+      "images/DSC09285.JPG",
+      "images/DSC09286.JPG",
+      "images/DSC09287.JPG",
+      "images/DSC09288.JPG",
+      "images/DSC09289.JPG",
+      "images/DSC09290.JPG",
+      "images/DSC09291.JPG",
+      "images/DSC09292.JPG",
+      "images/DSC09293.JPG",
+      "images/DSC09294.JPG",
+      "images/DSC09295.JPG",
+      "images/DSC09296.JPG",
+      "images/DSC09297.JPG",
+      "images/DSC09298.JPG",
+      "images/DSC09299.JPG",
+      "images/DSC09300.JPG",
+      "images/DSC09301.JPG",
+      "images/DSC09302.JPG",
+      "images/DSC09303.JPG",
+      "images/DSC09304.JPG",
+      "images/DSC09305.JPG",
+      "images/DSC09306.JPG"
+];
+
+    const root = document.documentElement;
+    const photoCount = document.querySelector("#photoCount");
+    const marqueeA = document.querySelector("#marqueeA");
+    const marqueeB = document.querySelector("#marqueeB");
+    const featurePhoto = document.querySelector("#featurePhoto");
+    const photoGrid = document.querySelector("#photoGrid");
+    const loadMore = document.querySelector("#loadMore");
+    const lightbox = document.querySelector("#lightbox");
+    const lightboxImage = document.querySelector("#lightboxImage");
+    const closeLightbox = document.querySelector("#closeLightbox");
+
+    const heroIndex = Math.min(22, images.length - 1);
+    const featureIndex = Math.min(104, images.length - 1);
+    let rendered = 0;
+    const batchSize = 32;
+
+    root.style.setProperty("--hero-img", `url("${images[heroIndex]}")`);
+    photoCount.textContent = images.length;
+    featurePhoto.src = images[featureIndex];
+
+    function makeStripPhoto(src, index) {
+      const frame = document.createElement("div");
+      frame.className = "strip-photo";
+
+      const img = document.createElement("img");
+      img.src = src;
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.alt = `毕业照片 ${index + 1}`;
+
+      frame.appendChild(img);
+      return frame;
+    }
+
+    function renderMarquee(target, selected) {
+      const loop = selected.concat(selected);
+      const fragment = document.createDocumentFragment();
+      loop.forEach((src, index) => fragment.appendChild(makeStripPhoto(src, index)));
+      target.appendChild(fragment);
+    }
+
+    function renderGalleryBatch() {
+      const next = images.slice(rendered, rendered + batchSize);
+      const fragment = document.createDocumentFragment();
+
+      next.forEach((src, index) => {
+        const absoluteIndex = rendered + index;
+        const item = document.createElement("button");
+        item.className = "photo";
+        item.type = "button";
+        item.dataset.title = `青春瞬间 ${absoluteIndex + 1}`;
+        item.setAttribute("aria-label", `查看毕业照片 ${absoluteIndex + 1}`);
+
+        const img = document.createElement("img");
+        img.src = src;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.alt = `毕业照片 ${absoluteIndex + 1}`;
+
+        item.appendChild(img);
+        item.addEventListener("click", () => openLightbox(src, img.alt));
+        fragment.appendChild(item);
+      });
+
+      photoGrid.appendChild(fragment);
+      rendered += next.length;
+
+      if (rendered >= images.length) {
+        loadMore.textContent = "所有照片已展示";
+        loadMore.disabled = true;
+      } else {
+        loadMore.textContent = `加载更多照片（${rendered}/${images.length}）`;
+      }
+    }
+
+    function openLightbox(src, alt) {
+      lightboxImage.src = src;
+      lightboxImage.alt = alt;
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closePreview() {
+      lightbox.classList.remove("open");
+      lightboxImage.removeAttribute("src");
+      document.body.style.overflow = "";
+    }
+
+    const stripA = images.filter((_, index) => index % 12 === 0).slice(0, 26);
+    const stripB = images.filter((_, index) => index % 12 === 6).slice(0, 26);
+
+    renderMarquee(marqueeA, stripA);
+    renderMarquee(marqueeB, stripB);
+    renderGalleryBatch();
+    loadMore.addEventListener("click", renderGalleryBatch);
+    closeLightbox.addEventListener("click", closePreview);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closePreview();
+    });
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.classList.contains("open")) closePreview();
+    });
+  </script>
+</body>
+</html>
