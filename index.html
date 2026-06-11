@@ -109,9 +109,9 @@
 
     .hero {
       position: relative;
-      min-height: 94vh;
+      min-height: 86vh;
       display: grid;
-      align-items: end;
+      align-items: start;
       overflow: hidden;
       isolation: isolate;
       background: #073b4c;
@@ -135,8 +135,8 @@
       inset: 0;
       z-index: -1;
       background:
-        linear-gradient(90deg, rgba(7, 59, 76, 0.88) 0%, rgba(7, 59, 76, 0.48) 48%, rgba(7, 59, 76, 0.1) 100%),
-        linear-gradient(0deg, rgba(7, 59, 76, 0.84) 0%, rgba(7, 59, 76, 0.05) 58%);
+        linear-gradient(180deg, rgba(7, 59, 76, 0.26) 0%, rgba(7, 59, 76, 0.02) 38%, rgba(255, 255, 255, 0.06) 100%),
+        linear-gradient(90deg, rgba(7, 59, 76, 0.34) 0%, rgba(7, 59, 76, 0.08) 42%, rgba(7, 59, 76, 0.01) 100%);
     }
 
     @keyframes heroFloat {
@@ -147,7 +147,7 @@
     .hero-content {
       width: min(1120px, calc(100% - 36px));
       margin: 0 auto;
-      padding: 132px 0 9vh;
+      padding: 104px 0 0;
       color: #fff;
     }
 
@@ -170,20 +170,22 @@
     }
 
     h1 {
-      width: min(850px, 100%);
+      width: min(560px, 100%);
       margin: 0;
-      font-size: clamp(44px, 9vw, 112px);
-      line-height: 0.95;
+      font-size: clamp(34px, 5.5vw, 72px);
+      line-height: 1.04;
       letter-spacing: 0;
       text-wrap: balance;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.28);
     }
 
     .hero-text {
-      width: min(690px, 100%);
-      margin: 22px 0 0;
-      font-size: clamp(17px, 2.1vw, 24px);
-      line-height: 1.68;
-      color: rgba(255, 255, 255, 0.88);
+      width: min(430px, 100%);
+      margin: 16px 0 0;
+      font-size: clamp(15px, 1.8vw, 18px);
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 3px 16px rgba(0, 0, 0, 0.24);
     }
 
     .hero-actions {
@@ -194,12 +196,7 @@
     }
 
     .album-preview {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: clamp(10px, 2vw, 18px);
-      width: min(760px, 100%);
-      margin-top: clamp(34px, 6vw, 72px);
-      align-items: end;
+      display: none;
     }
 
     .album-card {
@@ -462,8 +459,8 @@
     }
 
     .photo-grid {
-      column-count: 4;
-      column-gap: 18px;
+      column-count: 6;
+      column-gap: 12px;
     }
 
     .photo {
@@ -509,6 +506,57 @@
       width: 100%;
       height: auto;
       transition: transform 0.45s ease;
+    }
+
+    .people {
+      background: #fff;
+      border-top: 1px solid var(--line);
+    }
+
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .person-card {
+      min-width: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 12px 30px rgba(7, 59, 76, 0.08);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .person-card.active {
+      outline: 3px solid var(--sun);
+      outline-offset: 2px;
+    }
+
+    .person-card img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      display: block;
+    }
+
+    .person-card span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 46px;
+      padding: 10px 12px;
+      color: var(--deep);
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .person-card small {
+      color: var(--muted);
+      font-weight: 800;
     }
 
     .load-row {
@@ -607,8 +655,12 @@
         min-height: 430px;
       }
 
+      .people-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
       .photo-grid {
-        column-count: 2;
+        column-count: 4;
         column-gap: 12px;
       }
     }
@@ -636,7 +688,7 @@
       }
 
       .photo-grid {
-        column-count: 1;
+        column-count: 2;
       }
 
       .photo {
@@ -644,6 +696,10 @@
       }
 
       .album-preview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .people-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
@@ -658,6 +714,7 @@
     <div class="nav-links">
       <a href="#moments">流动画卷</a>
       <a href="#story">纪念册</a>
+      <a href="#people">人物</a>
       <a href="#gallery">瀑布流</a>
     </div>
   </nav>
@@ -666,9 +723,9 @@
     <div class="hero-content">
       <div class="kicker">Graduation Album 2026</div>
       <h1>把青春装订成册</h1>
-      <p class="hero-text">一页给笑声，一页给盛夏，一页给即将出发的我们。532 张照片，留下这段闪闪发光的毕业时光。</p>
+      <p class="hero-text">532 张照片，留住这个毕业夏天。</p>
       <div class="hero-actions">
-        <a class="btn primary" href="#gallery">翻开相册</a>
+        <a class="btn primary" href="#people">选择人物</a>
         <a class="btn" href="#moments">看流动画卷</a>
       </div>
       <div class="album-preview" id="albumPreview" aria-label="毕业纪念册封面照片"></div>
@@ -676,24 +733,13 @@
   </header>
 
   <main>
-    <section class="section">
-      <div class="section-inner stats" aria-label="照片信息">
-        <div class="stat">
-          <strong id="photoCount">547</strong>
-          <span>张青春影像</span>
+    <section class="section people">
+      <div class="section-inner">
+        <div class="section-title" id="people">
+          <h2>人物合集</h2>
+          <p>选择人物，直接看对应照片。</p>
         </div>
-        <div class="stat">
-          <strong>1</strong>
-          <span>个毕业夏天</span>
-        </div>
-        <div class="stat">
-          <strong>∞</strong>
-          <span>份同行记忆</span>
-        </div>
-        <div class="stat">
-          <strong>2026</strong>
-          <span>奔赴新章</span>
-        </div>
+        <div class="people-grid" id="peopleGrid" aria-label="人物照片合集"></div>
       </div>
     </section>
 
@@ -718,8 +764,8 @@
           </figcaption>
         </figure>
         <div class="quote">
-          <p>毕业不是散场，是把同一段青春装订成册，再带着它走向不同的明天。</p>
-          <div class="note">每一张照片都像一枚书签，夹住那天的光、那阵风、那些没说完的话。往后再翻开，仍然能听见此刻的热烈。</div>
+          <p>毕业不是散场，是把青春装订成册。</p>
+          <div class="note">翻开照片，就回到那个夏天。</div>
           <div class="chips" aria-label="主题标签">
             <span class="chip">热烈</span>
             <span class="chip">明亮</span>
@@ -734,7 +780,7 @@
       <div class="section-inner">
         <div class="section-title">
           <h2>瀑布流相册</h2>
-          <p>照片按原本的横竖比例自然铺开，像一本不断向下翻页的毕业纪念册。继续加载，就能慢慢看完整个夏天。</p>
+          <p id="galleryNote">全部照片</p>
         </div>
         <div class="photo-grid" id="photoGrid" aria-live="polite"></div>
         <div class="load-row">
@@ -1294,9 +1340,11 @@
     const marqueeA = document.querySelector("#marqueeA");
     const marqueeB = document.querySelector("#marqueeB");
     const albumPreview = document.querySelector("#albumPreview");
+    const peopleGrid = document.querySelector("#peopleGrid");
     const featurePhoto = document.querySelector("#featurePhoto");
     const photoGrid = document.querySelector("#photoGrid");
     const loadMore = document.querySelector("#loadMore");
+    const galleryNote = document.querySelector("#galleryNote");
     const lightbox = document.querySelector("#lightbox");
     const lightboxImage = document.querySelector("#lightboxImage");
     const closeLightbox = document.querySelector("#closeLightbox");
@@ -1305,9 +1353,11 @@
     let rendered = 0;
     const batchSize = 32;
     const coverImage = "images/cover.jpg";
+    let activeImages = images;
+    let activeAlbum = "全部";
 
     root.style.setProperty("--hero-img", `url("${coverImage}")`);
-    photoCount.textContent = images.length;
+    if (photoCount) photoCount.textContent = images.length;
     featurePhoto.src = images[featureIndex];
 
     function makeStripPhoto(src, index) {
@@ -1359,8 +1409,92 @@
       albumPreview.appendChild(fragment);
     }
 
+    function imageNumber(src) {
+      const match = src.match(/DSC(\d+)\.JPG$/);
+      return match ? Number(match[1]) : 0;
+    }
+
+    function inRanges(src, ranges) {
+      const number = imageNumber(src);
+      return ranges.some(([start, end]) => number >= start && number <= end);
+    }
+
+    const personAlbums = [
+      {
+        name: "全部",
+        cover: coverImage,
+        getPhotos: () => images
+      },
+      {
+        name: "合照",
+        cover: coverImage,
+        getPhotos: () => images.filter((src) => inRanges(src, [[8760, 8773], [8880, 8907], [9040, 9068], [9130, 9167]]))
+      },
+      {
+        name: "同学 A",
+        cover: "images/DSC08782.JPG",
+        getPhotos: () => images.filter((src) => inRanges(src, [[8781, 8835], [8987, 9038], [9168, 9204]]))
+      },
+      {
+        name: "同学 B",
+        cover: "images/DSC08847.JPG",
+        getPhotos: () => images.filter((src) => inRanges(src, [[8845, 8905], [9070, 9123], [9216, 9238]]))
+      },
+      {
+        name: "同学 C",
+        cover: "images/DSC09071.JPG",
+        getPhotos: () => images.filter((src) => inRanges(src, [[8774, 8780], [8908, 8986], [9124, 9167]]))
+      },
+      {
+        name: "同学 D",
+        cover: "images/DSC09245.JPG",
+        getPhotos: () => images.filter((src) => inRanges(src, [[9239, 9306]]))
+      }
+    ];
+
+    function renderPeopleGrid() {
+      const fragment = document.createDocumentFragment();
+
+      personAlbums.forEach((album) => {
+        const photos = album.getPhotos();
+        const card = document.createElement("button");
+        card.className = `person-card${album.name === activeAlbum ? " active" : ""}`;
+        card.type = "button";
+        card.setAttribute("aria-label", `查看${album.name}照片`);
+
+        const img = document.createElement("img");
+        img.src = album.cover;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.alt = `${album.name}照片合集`;
+
+        const label = document.createElement("span");
+        label.innerHTML = `${album.name}<small>${photos.length}</small>`;
+
+        card.appendChild(img);
+        card.appendChild(label);
+        card.addEventListener("click", () => selectAlbum(album.name));
+        fragment.appendChild(card);
+      });
+
+      peopleGrid.replaceChildren(fragment);
+    }
+
+    function selectAlbum(name) {
+      const album = personAlbums.find((item) => item.name === name) || personAlbums[0];
+      activeAlbum = album.name;
+      activeImages = album.getPhotos();
+      rendered = 0;
+      photoGrid.replaceChildren();
+      galleryNote.textContent = album.name === "全部" ? "全部照片" : `${album.name} · ${activeImages.length} 张`;
+      loadMore.disabled = false;
+      renderPeopleGrid();
+      renderGalleryBatch();
+      document.querySelector("#gallery").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
     function renderGalleryBatch() {
-      const next = images.slice(rendered, rendered + batchSize);
+      const next = activeImages.slice(rendered, rendered + batchSize);
       const fragment = document.createDocumentFragment();
 
       next.forEach((src, index) => {
@@ -1385,11 +1519,11 @@
       photoGrid.appendChild(fragment);
       rendered += next.length;
 
-      if (rendered >= images.length) {
+      if (rendered >= activeImages.length) {
         loadMore.textContent = "所有照片已展示";
         loadMore.disabled = true;
       } else {
-        loadMore.textContent = `加载更多照片（${rendered}/${images.length}）`;
+        loadMore.textContent = `加载更多照片（${rendered}/${activeImages.length}）`;
       }
     }
 
@@ -1412,6 +1546,7 @@
     renderMarquee(marqueeA, stripA);
     renderMarquee(marqueeB, stripB);
     renderAlbumPreview();
+    renderPeopleGrid();
     renderGalleryBatch();
     loadMore.addEventListener("click", renderGalleryBatch);
     closeLightbox.addEventListener("click", closePreview);
