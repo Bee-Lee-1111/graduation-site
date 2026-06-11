@@ -452,61 +452,32 @@
       color: var(--deep);
     }
 
-    .album-collage {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .album-photo {
-      position: relative;
-      min-height: 190px;
-      padding: 0;
-      overflow: hidden;
-      border: 0;
-      border-radius: 8px;
-      background: #eef4f6;
-      box-shadow: 0 16px 36px rgba(7, 59, 76, 0.12);
-      cursor: zoom-in;
-    }
-
-    .album-photo:first-child {
-      grid-column: span 2;
-      grid-row: span 2;
-    }
-
-    .album-photo img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      transition: transform 0.45s ease;
-    }
-
-    .album-photo:hover img {
-      transform: scale(1.04);
-    }
-
-    .mahjong-row {
+    .tile-line {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-end;
       gap: 10px;
-      margin-top: 22px;
       color: var(--deep);
-      font-size: clamp(24px, 4vw, 38px);
-      line-height: 1;
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 900;
+      line-height: 1.2;
     }
 
-    .mahjong-row span {
+    .tile-line span {
       display: grid;
       place-items: center;
-      width: 48px;
-      height: 58px;
-      border: 1px solid rgba(7, 59, 76, 0.14);
+      width: 42px;
+      height: 52px;
+      border: 1px solid rgba(7, 59, 76, 0.18);
       border-radius: 7px;
+      color: var(--deep);
       background: #fff;
-      box-shadow: 0 12px 24px rgba(7, 59, 76, 0.1);
+      box-shadow: 0 10px 22px rgba(7, 59, 76, 0.1);
+    }
+
+    .tile-line span:first-child,
+    .tile-line span:nth-child(2) {
+      color: #ef476f;
     }
 
     .gallery {
@@ -515,16 +486,20 @@
       border-top: 1px solid var(--line);
     }
 
+    .gallery .section-inner {
+      width: min(1720px, calc(100vw - 32px));
+    }
+
     .photo-grid {
-      column-count: 6;
-      column-gap: 12px;
+      column-count: 5;
+      column-gap: 16px;
     }
 
     .photo {
       position: relative;
       display: block;
       width: 100%;
-      margin: 0 0 18px;
+      margin: 0 0 16px;
       padding: 0;
       overflow: hidden;
       border-radius: 8px;
@@ -716,12 +691,8 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .album-collage {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
       .photo-grid {
-        column-count: 4;
+        column-count: 3;
         column-gap: 12px;
       }
     }
@@ -764,14 +735,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .album-collage {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .album-photo:first-child {
-        grid-column: span 2;
-        grid-row: span 1;
-      }
     }
   </style>
 </head>
@@ -783,7 +746,6 @@
     </a>
     <div class="nav-links">
       <a href="#moments">流动画卷</a>
-      <a href="#story">纪念册</a>
       <a href="#people">人物</a>
       <a href="#gallery">瀑布流</a>
     </div>
@@ -798,7 +760,15 @@
       <div class="section-inner">
         <div class="section-title" id="people">
           <h2>人物合集</h2>
-          <p>选择人物，直接看对应照片。</p>
+          <p class="tile-line" aria-label="中发白东南西北风">
+            <span>中</span>
+            <span>发</span>
+            <span>白</span>
+            <span>东</span>
+            <span>南</span>
+            <span>西</span>
+            <span>北</span>
+          </p>
         </div>
         <div class="people-grid" id="peopleGrid" aria-label="人物照片合集"></div>
       </div>
@@ -812,28 +782,6 @@
       <div class="marquee-wrap" aria-label="毕业照片滚动展示">
         <div class="marquee" id="marqueeA"></div>
         <div class="marquee reverse" id="marqueeB"></div>
-      </div>
-    </section>
-
-    <section class="section story" id="story">
-      <div class="section-inner">
-        <div class="section-title">
-          <h2>纪念册</h2>
-          <p>合照精选。</p>
-        </div>
-        <div class="album-collage" id="albumCollage" aria-label="纪念册合照"></div>
-        <div class="mahjong-row" aria-label="麻将标志">
-          <span>🀄</span>
-          <span>🀇</span>
-          <span>🀈</span>
-          <span>🀉</span>
-          <span>🀙</span>
-          <span>🀚</span>
-          <span>🀛</span>
-          <span>🀐</span>
-          <span>🀑</span>
-          <span>🀒</span>
-        </div>
       </div>
     </section>
 
@@ -1401,7 +1349,6 @@
     const marqueeA = document.querySelector("#marqueeA");
     const marqueeB = document.querySelector("#marqueeB");
     const peopleGrid = document.querySelector("#peopleGrid");
-    const albumCollage = document.querySelector("#albumCollage");
     const photoGrid = document.querySelector("#photoGrid");
     const loadMore = document.querySelector("#loadMore");
     const galleryNote = document.querySelector("#galleryNote");
@@ -1412,18 +1359,6 @@
     let rendered = 0;
     const batchSize = 32;
     const coverImage = "images/cover.jpg";
-    const albumPhotos = [
-      "images/cover.jpg",
-      "images/DSC08760.JPG",
-      "images/DSC08761.JPG",
-      "images/DSC08762.JPG",
-      "images/DSC08763.JPG",
-      "images/DSC08880.JPG",
-      "images/DSC08881.JPG",
-      "images/DSC08882.JPG",
-      "images/DSC09040.JPG",
-      "images/DSC09130.JPG"
-    ];
     let activeImages = images;
     let activeAlbum = "全部";
 
@@ -1463,32 +1398,32 @@
 
     const personAlbums = [
       {
-        name: "全部",
+        name: "中发白",
         cover: coverImage,
         getPhotos: () => images
       },
       {
-        name: "合照",
+        name: "红中",
         cover: coverImage,
         getPhotos: () => images.filter((src) => inRanges(src, [[8760, 8773], [8880, 8907], [9040, 9068], [9130, 9167]]))
       },
       {
-        name: "同学 A",
+        name: "东风",
         cover: "images/DSC08782.JPG",
         getPhotos: () => images.filter((src) => inRanges(src, [[8781, 8835], [8987, 9038], [9168, 9204]]))
       },
       {
-        name: "同学 B",
+        name: "南风",
         cover: "images/DSC08847.JPG",
         getPhotos: () => images.filter((src) => inRanges(src, [[8845, 8905], [9070, 9123], [9216, 9238]]))
       },
       {
-        name: "同学 C",
+        name: "西风",
         cover: "images/DSC09071.JPG",
         getPhotos: () => images.filter((src) => inRanges(src, [[8774, 8780], [8908, 8986], [9124, 9167]]))
       },
       {
-        name: "同学 D",
+        name: "北风",
         cover: "images/DSC09245.JPG",
         getPhotos: () => images.filter((src) => inRanges(src, [[9239, 9306]]))
       }
@@ -1506,7 +1441,7 @@
 
         const img = document.createElement("img");
         img.src = album.cover;
-        img.loading = "lazy";
+        img.loading = "eager";
         img.decoding = "async";
         img.alt = `${album.name}照片合集`;
 
@@ -1522,36 +1457,13 @@
       peopleGrid.replaceChildren(fragment);
     }
 
-    function renderAlbumCollage() {
-      const fragment = document.createDocumentFragment();
-
-      albumPhotos.forEach((src, index) => {
-        const item = document.createElement("button");
-        item.className = "album-photo";
-        item.type = "button";
-        item.setAttribute("aria-label", `查看纪念册合照 ${index + 1}`);
-
-        const img = document.createElement("img");
-        img.src = src;
-        img.loading = "lazy";
-        img.decoding = "async";
-        img.alt = `纪念册合照 ${index + 1}`;
-
-        item.appendChild(img);
-        item.addEventListener("click", () => openLightbox(src, img.alt));
-        fragment.appendChild(item);
-      });
-
-      albumCollage.appendChild(fragment);
-    }
-
     function selectAlbum(name) {
       const album = personAlbums.find((item) => item.name === name) || personAlbums[0];
       activeAlbum = album.name;
       activeImages = album.getPhotos();
       rendered = 0;
       photoGrid.replaceChildren();
-      galleryNote.textContent = album.name === "全部" ? "全部照片" : `${album.name} · ${activeImages.length} 张`;
+      galleryNote.textContent = album.name === "中发白" ? "全部照片" : `${album.name} · ${activeImages.length} 张`;
       loadMore.disabled = false;
       renderPeopleGrid();
       renderGalleryBatch();
@@ -1611,7 +1523,6 @@
     renderMarquee(marqueeA, stripA);
     renderMarquee(marqueeB, stripB);
     renderPeopleGrid();
-    renderAlbumCollage();
     renderGalleryBatch();
     loadMore.addEventListener("click", renderGalleryBatch);
     closeLightbox.addEventListener("click", closePreview);
