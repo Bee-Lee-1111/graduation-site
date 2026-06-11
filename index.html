@@ -193,6 +193,44 @@
       margin-top: 34px;
     }
 
+    .album-preview {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(10px, 2vw, 18px);
+      width: min(760px, 100%);
+      margin-top: clamp(34px, 6vw, 72px);
+      align-items: end;
+    }
+
+    .album-card {
+      position: relative;
+      overflow: hidden;
+      border: 8px solid rgba(255, 255, 255, 0.86);
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.28);
+      transform: rotate(var(--tilt, 0deg));
+    }
+
+    .album-card:nth-child(1),
+    .album-card:nth-child(3) {
+      aspect-ratio: 3 / 4;
+    }
+
+    .album-card:nth-child(2),
+    .album-card:nth-child(4) {
+      aspect-ratio: 4 / 5;
+      margin-bottom: 26px;
+    }
+
+    .album-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: saturate(0.94) contrast(1.03);
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -418,24 +456,30 @@
     }
 
     .gallery {
-      background: #f9fcff;
+      background:
+        linear-gradient(180deg, #fbfaf6 0%, #f7fbff 46%, #fff 100%);
       border-top: 1px solid var(--line);
     }
 
     .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 14px;
+      column-count: 4;
+      column-gap: 18px;
     }
 
     .photo {
       position: relative;
-      aspect-ratio: 1 / 1;
+      display: block;
+      width: 100%;
+      margin: 0 0 18px;
+      padding: 0;
       overflow: hidden;
       border-radius: 8px;
+      border: 0;
       background: #e8eef6;
       box-shadow: 0 14px 32px rgba(7, 59, 76, 0.1);
       cursor: zoom-in;
+      break-inside: avoid;
+      text-align: left;
     }
 
     .photo::after {
@@ -462,6 +506,8 @@
     }
 
     .photo img {
+      width: 100%;
+      height: auto;
       transition: transform 0.45s ease;
     }
 
@@ -562,7 +608,8 @@
       }
 
       .photo-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-count: 2;
+        column-gap: 12px;
       }
     }
 
@@ -589,7 +636,15 @@
       }
 
       .photo-grid {
-        gap: 9px;
+        column-count: 1;
+      }
+
+      .photo {
+        margin-bottom: 12px;
+      }
+
+      .album-preview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
   </style>
@@ -602,20 +657,21 @@
     </a>
     <div class="nav-links">
       <a href="#moments">流动画卷</a>
-      <a href="#story">青春片段</a>
-      <a href="#gallery">照片墙</a>
+      <a href="#story">纪念册</a>
+      <a href="#gallery">瀑布流</a>
     </div>
   </nav>
 
   <header class="hero" id="top">
     <div class="hero-content">
-      <div class="kicker">Graduation Season</div>
-      <h1>青春正好，奔赴下一场山海</h1>
-      <p class="hero-text">把笑声、阳光、并肩走过的日子，都装进这一页。547 张照片，记录这个夏天最闪亮的毕业瞬间。</p>
+      <div class="kicker">Graduation Album 2026</div>
+      <h1>把青春装订成册</h1>
+      <p class="hero-text">一页给笑声，一页给盛夏，一页给即将出发的我们。532 张照片，留下这段闪闪发光的毕业时光。</p>
       <div class="hero-actions">
-        <a class="btn primary" href="#moments">开始回看</a>
-        <a class="btn" href="#gallery">进入照片墙</a>
+        <a class="btn primary" href="#gallery">翻开相册</a>
+        <a class="btn" href="#moments">看流动画卷</a>
       </div>
+      <div class="album-preview" id="albumPreview" aria-label="毕业纪念册封面照片"></div>
     </div>
   </header>
 
@@ -643,8 +699,8 @@
 
     <section class="section memory-band" id="moments">
       <div class="section-title section-inner">
-        <h2>滚动展示</h2>
-        <p>照片像走廊里的风一样掠过，停下鼠标就能慢慢看。每一张都在说：我们真的一起热烈地年轻过。</p>
+        <h2>流动画卷</h2>
+        <p>像翻过一条长长的毕业走廊，照片从眼前轻轻经过。停下鼠标，就能把某一刻看得更久一点。</p>
       </div>
       <div class="marquee-wrap" aria-label="毕业照片滚动展示">
         <div class="marquee" id="marqueeA"></div>
@@ -657,13 +713,13 @@
         <figure class="feature">
           <img id="featurePhoto" alt="毕业纪念精选照片" loading="lazy">
           <figcaption class="feature-label">
-            <strong>把今天交给镜头</strong>
+            <strong>纪念册第一页</strong>
             <span>多年后再翻起，风声、掌声、笑声都会回来。</span>
           </figcaption>
         </figure>
         <div class="quote">
-          <p>毕业不是散场，是把同一段青春折成纸飞机，飞向不同的明天。</p>
-          <div class="note">愿每一次回头，都能看见闪闪发光的我们；愿每一次出发，都还带着此刻的勇气。</div>
+          <p>毕业不是散场，是把同一段青春装订成册，再带着它走向不同的明天。</p>
+          <div class="note">每一张照片都像一枚书签，夹住那天的光、那阵风、那些没说完的话。往后再翻开，仍然能听见此刻的热烈。</div>
           <div class="chips" aria-label="主题标签">
             <span class="chip">热烈</span>
             <span class="chip">明亮</span>
@@ -677,8 +733,8 @@
     <section class="section gallery" id="gallery">
       <div class="section-inner">
         <div class="section-title">
-          <h2>毕业照片墙</h2>
-          <p>默认先加载一部分，继续点击就能逐批展开全部照片；图片使用懒加载，浏览会更顺滑。</p>
+          <h2>瀑布流相册</h2>
+          <p>照片按原本的横竖比例自然铺开，像一本不断向下翻页的毕业纪念册。继续加载，就能慢慢看完整个夏天。</p>
         </div>
         <div class="photo-grid" id="photoGrid" aria-live="polite"></div>
         <div class="load-row">
@@ -1237,6 +1293,7 @@
     const photoCount = document.querySelector("#photoCount");
     const marqueeA = document.querySelector("#marqueeA");
     const marqueeB = document.querySelector("#marqueeB");
+    const albumPreview = document.querySelector("#albumPreview");
     const featurePhoto = document.querySelector("#featurePhoto");
     const photoGrid = document.querySelector("#photoGrid");
     const loadMore = document.querySelector("#loadMore");
@@ -1244,12 +1301,12 @@
     const lightboxImage = document.querySelector("#lightboxImage");
     const closeLightbox = document.querySelector("#closeLightbox");
 
-    const heroIndex = Math.min(22, images.length - 1);
     const featureIndex = Math.min(104, images.length - 1);
     let rendered = 0;
     const batchSize = 32;
+    const coverImage = "images/cover.jpg";
 
-    root.style.setProperty("--hero-img", `url("${images[heroIndex]}")`);
+    root.style.setProperty("--hero-img", `url("${coverImage}")`);
     photoCount.textContent = images.length;
     featurePhoto.src = images[featureIndex];
 
@@ -1272,6 +1329,34 @@
       const fragment = document.createDocumentFragment();
       loop.forEach((src, index) => fragment.appendChild(makeStripPhoto(src, index)));
       target.appendChild(fragment);
+    }
+
+    function renderAlbumPreview() {
+      const previewImages = [
+        coverImage,
+        images[Math.min(28, images.length - 1)],
+        images[Math.min(154, images.length - 1)],
+        images[Math.min(318, images.length - 1)]
+      ];
+      const tilts = ["-3deg", "2deg", "-1.5deg", "3deg"];
+      const fragment = document.createDocumentFragment();
+
+      previewImages.forEach((src, index) => {
+        const card = document.createElement("div");
+        card.className = "album-card";
+        card.style.setProperty("--tilt", tilts[index]);
+
+        const img = document.createElement("img");
+        img.src = src;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.alt = `纪念册封面照片 ${index + 1}`;
+
+        card.appendChild(img);
+        fragment.appendChild(card);
+      });
+
+      albumPreview.appendChild(fragment);
     }
 
     function renderGalleryBatch() {
@@ -1326,6 +1411,7 @@
 
     renderMarquee(marqueeA, stripA);
     renderMarquee(marqueeB, stripB);
+    renderAlbumPreview();
     renderGalleryBatch();
     loadMore.addEventListener("click", renderGalleryBatch);
     closeLightbox.addEventListener("click", closePreview);
